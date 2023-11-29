@@ -22,490 +22,489 @@
 
 
 
-        <link rel="stylesheet" href="https://cdn.miguyu.com/statics/css/cust/astyle2304bcd.min.css?v=0.2.5.3" type="text/css">
+    <link rel="stylesheet" href="https://cdn.miguyu.com/statics/css/cust/astyle2304bcd.min.css?v=0.2.5.3" type="text/css">
     <link rel="stylesheet" href="https://cdn.miguyu.com/statics/css/cust/bstyle2306hot.min.css?v=0.2.5.3.2" type="text/css">
 
-        <script type="text/javascript" rel="preload" src="https://cdn.miguyu.com/statics/js/jquery.min.js"></script>
+    <script type="text/javascript" rel="preload" src="https://cdn.miguyu.com/statics/js/jquery.min.js"></script>
     <script type="text/javascript" rel="preload" src="https://cdn.miguyu.com/statics/js/vue.min.js"></script>
     <script type="text/javascript" rel="preload" src="https://cdn.miguyu.com/statics/js/vue-resource.min.js"></script>
 </head>
-<body style="background-image: url("https://cdn.miguyu.com/imgs/bg/custHaiVV0001xvc.jpg");">
-    <script>
-        var isG = 1;
-        var ranTheme=[];
-        var cur_h_color = '#F2F2F2';
-        var cur_ratio = 0.3;
-        var uconfs=[];
-        var ubackconfs=[];
-        var meTheme=[];
-        var netTheme=[];
-        var moTheme=[];
-        var curOutTime = 300;
-        var cur_max_his = 10;
-        var cur_opacity = 0.8;
-        var dddd=0;
-        var show_logo = 0;
-        var mix_syno = 0;
-        var time_style_show = 0;
-        var s_num_up=61;
-        var isExtTabs = 1;
-        var s_stat_tj=0;
-        var s_devi_is=1;
-    </script>
-    <div id="main">
-        <div class="bg-mask" :style="backCssChange(0)" v-cloak></div>
-        <div class="nav-weather" v-cloak v-show="showWeather===1" ><div id="he-plugin-simple"></div></div>
-        <div class="my-ui-nav-top-dis" :style="{'height': navTop+'px'}" v-cloak></div>
-        <div class="my-ui-simple-mode" v-cloak></div>
-        <div id="top-nav"><div class="my-logo" v-cloak @click="timeCkEffect"><img v-show="showLogo===0" src="https://www.miguyu.com/mylogo.png" />
-            <div class="time-caption" v-show="showLogo===2 || showLogo===3"><div class="my-time" v-show="showLogo===2 || showLogo===3"></div><div class="my-calendar" v-show="showLogo===3"></div></div></div></div>
-        <div id="search" v-show="bHideSrchBox==0" v-cloak>
-            <div id="search-box">
-                <span class="search-icon"></span>
-                <input type="text" id="s-txt" class="s-key" placeholder="" autocomplete="off" /><span class="s-del" title="清空" onclick="delSearchText()"><i class="fa fa-times"></i></span>
-                <button class="s-btn" id="search-btn"><i class="fa fa-search"></i></button>
-            </div>
-            <div class="box search-hot-text" id="box" style="display: none">
-                <div class="space-line"></div>
-                <ul></ul>
-            </div>
-            <div class="search-engine">
-                <ul class="search-engine-list">
-                </ul>
+<body style="background-image: url('https://cdn.miguyu.com/imgs/bg/custHaiVV0001xvc.jpg');">
+<script>
+    var isG = 1;
+    var ranTheme=[];
+    var cur_h_color = '#F2F2F2';
+    var cur_ratio = 0.3;
+    var uconfs=[];
+    var ubackconfs=[];
+    var meTheme=[];
+    var netTheme=[];
+    var moTheme=[];
+    var curOutTime = 300;
+    var cur_max_his = 10;
+    var cur_opacity = 0.8;
+    var dddd=0;
+    var show_logo = 0;
+    var mix_syno = 0;
+    var time_style_show = 0;
+    var s_num_up=61;
+    var isExtTabs = 1;
+    var s_stat_tj=0;
+    var s_devi_is=1;
+</script>
+<div id="main">
+    <div class="bg-mask" :style="backCssChange(0)" v-cloak></div>
+    <div class="nav-weather" v-cloak v-show="showWeather===1" ><div id="he-plugin-simple"></div></div>
+    <div class="my-ui-nav-top-dis" :style="{'height': navTop+'px'}" v-cloak></div>
+    <div class="my-ui-simple-mode" v-cloak></div>
+    <div id="top-nav"><div class="my-logo" v-cloak @click="timeCkEffect"><div class="my-calendar" ></div></div></div></div>
+    <div id="search" v-show="bHideSrchBox==0" v-cloak>
+        <div id="search-box">
+            <span class="search-icon"></span>
+            <input type="text" id="s-txt" class="s-key" placeholder="" autocomplete="off" /><span class="s-del" title="清空" onclick="delSearchText()"><i class="fa fa-times"></i></span>
+            <button class="s-btn" id="search-btn"><i class="fa fa-search"></i></button>
+        </div>
+        <div class="box search-hot-text" id="box" style="display: none">
+            <div class="space-line"></div>
+            <ul></ul>
+        </div>
+        <div class="search-engine">
+            <ul class="search-engine-list">
+            </ul>
+        </div>
+    </div>
+
+    <div id="app" v-show="bHideNav==0" v-cloak>
+        <div id="catNavBar" class="sortNav" v-show="cShow > 1" v-cloak>
+            <div class="itemCat" v-for="(item,index) in catLists" :style="changeCatStyle(index==show_index)" v-show="item.ishide==0"
+                 @mouseenter="switchShowIndex(item.type)" @mouseleave="cancelSwi()">
+                {{item.catname}}
             </div>
         </div>
-
-        <div id="app" v-show="bHideNav==0" v-cloak>
-            <div id="catNavBar" class="sortNav" v-show="cShow > 1" v-cloak>
-                <div class="itemCat" v-for="(item,index) in catLists" :style="changeCatStyle(index==show_index)" v-show="item.ishide==0"
-                    @mouseenter="switchShowIndex(item.type)" @mouseleave="cancelSwi()">
-                    {{item.catname}}
-                </div>
-            </div>
-            <div :style="{'margin-top':(cShow>1? 0:'56px')}" v-cloak></div>
-            <div class="siteList" v-show="showType==0" :style="iconSiteWidthChange(0)" v-cloak>
-                <ul v-for="(item,index) in siteLists" v-show="index==show_index && catLists[index].ishide==0">
-                    <li v-for="(item1,index1) in item.sites" class="item" :style="iconCssChange(0)">
-                        <a :target="bUrlOpenMode?'_blank': '_self'" :href="item1.url" class="custom-hover" :style="changeListStyle(index1)" @mouseover="itemHover(index1)" @mouseout="delItemHover(index1)">
-                            <img :src="item1.logo">
-                            <span>{{item1.title}}</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="chroList" v-show="showType==1" :style="iconSiteWidthChange(1)" v-cloak>
-                <div class="siteStyle" v-for="(item,index) in siteLists" v-show="index==show_index && catLists[index].ishide==0">
-                    <div class="chroItems" :style="iconCssChange(1)" v-for="(item1,index1) in item.sites"><a :href="item1.url" :target="bUrlOpenMode?'_blank': '_self'"><div class="grid-item"><img :src="item1.logo"></div><div class="grid-title">{{bHideIcoName==0 ? item1.title : '&nbsp;'}}</div></a></div>
-                </div>
-            </div>
-            <div class="squaList" v-show="showType==2" :style="iconSiteWidthChange(2)" v-cloak>
-                <div class="siteSquaStyle" v-for="(item,index) in siteLists" v-show="index==show_index && catLists[index].ishide==0">
-                    <div class="squaItems" :style="iconCssChange(2)" v-for="(item1,index1) in item.sites"><a :href="item1.url" :target="bUrlOpenMode?'_blank': '_self'"><div class="grid3-item"><img :src="item1.logo"></div><div class="grid3-title">{{bHideIcoName==0 ? item1.title : '&nbsp;'}}</div></a></div>
-                </div>
-            </div>
-            <div class="icobList" v-show="showType==3" :style="iconSiteWidthChange(3)" v-cloak>
-                <div class="siteIcobStyle" v-for="(item,index) in siteLists" v-show="index==show_index && catLists[index].ishide==0">
-                    <div class="icobItems" :style="iconCssChange(3)" v-for="(item1,index1) in item.sites"><a :href="item1.url" :target="bUrlOpenMode?'_blank': '_self'"><div class="grid5-item"><img :src="item1.logo"></div><div class="grid5-title">{{bHideIcoName==0 ? item1.title : '&nbsp;'}}</div></a></div>
-                </div>
+        <div :style="{'margin-top':(cShow>1? 0:'56px')}" v-cloak></div>
+        <div class="siteList" v-show="showType==0" :style="iconSiteWidthChange(0)" v-cloak>
+            <ul v-for="(item,index) in siteLists" v-show="index==show_index && catLists[index].ishide==0">
+                <li v-for="(item1,index1) in item.sites" class="item" :style="iconCssChange(0)">
+                    <a :target="bUrlOpenMode?'_blank': '_self'" :href="item1.url" class="custom-hover" :style="changeListStyle(index1)" @mouseover="itemHover(index1)" @mouseout="delItemHover(index1)">
+                        <img :src="item1.logo">
+                        <span>{{item1.title}}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="chroList" v-show="showType==1" :style="iconSiteWidthChange(1)" v-cloak>
+            <div class="siteStyle" v-for="(item,index) in siteLists" v-show="index==show_index && catLists[index].ishide==0">
+                <div class="chroItems" :style="iconCssChange(1)" v-for="(item1,index1) in item.sites"><a :href="item1.url" :target="bUrlOpenMode?'_blank': '_self'"><div class="grid-item"><img :src="item1.logo"></div><div class="grid-title">{{bHideIcoName==0 ? item1.title : '&nbsp;'}}</div></a></div>
             </div>
         </div>
+        <div class="squaList" v-show="showType==2" :style="iconSiteWidthChange(2)" v-cloak>
+            <div class="siteSquaStyle" v-for="(item,index) in siteLists" v-show="index==show_index && catLists[index].ishide==0">
+                <div class="squaItems" :style="iconCssChange(2)" v-for="(item1,index1) in item.sites"><a :href="item1.url" :target="bUrlOpenMode?'_blank': '_self'"><div class="grid3-item"><img :src="item1.logo"></div><div class="grid3-title">{{bHideIcoName==0 ? item1.title : '&nbsp;'}}</div></a></div>
+            </div>
+        </div>
+        <div class="icobList" v-show="showType==3" :style="iconSiteWidthChange(3)" v-cloak>
+            <div class="siteIcobStyle" v-for="(item,index) in siteLists" v-show="index==show_index && catLists[index].ishide==0">
+                <div class="icobItems" :style="iconCssChange(3)" v-for="(item1,index1) in item.sites"><a :href="item1.url" :target="bUrlOpenMode?'_blank': '_self'"><div class="grid5-item"><img :src="item1.logo"></div><div class="grid5-title">{{bHideIcoName==0 ? item1.title : '&nbsp;'}}</div></a></div>
+            </div>
+        </div>
+    </div>
 
-        <div class="settingModal" id="frm-set-conf" v-show="isSettingModelShow" v-cloak>
-            <div class="conf-panel-all">
-                <div class="conf-panel-left">
-                    <div class="conf-item-caption"></div>
-                    <ul>
-                        <li :class="{active: confItemIndex==0}" @click="selectConfItem(0)"><i>基础</i></li>
-                        <li :class="{active: confItemIndex==1}" @click="selectConfItem(1)"><i>布局</i></li>
-                        <li :class="{active: confItemIndex==2}" @click="selectConfItem(2)"><i>背景</i></li>
-                        <li :class="{active: confItemIndex==3}" @click="selectConfItem(3)"><i>搜索</i></li>
-                        <li :class="{active: confItemIndex==4}" @click="selectConfItem(4)"><i>关于</i></li>
-                        <li :class="{active: confItemIndex==5}" @click="selectConfItem(5)"><i>帮助</i></li>
-                        <li :class="{active: confItemIndex==6}" @click="selectConfItem(6)"><i>合作</i></li>
-                    </ul>
-                </div>
+    <div class="settingModal" id="frm-set-conf" v-show="isSettingModelShow" v-cloak>
+        <div class="conf-panel-all">
+            <div class="conf-panel-left">
+                <div class="conf-item-caption"></div>
+                <ul>
+                    <li :class="{active: confItemIndex==0}" @click="selectConfItem(0)"><i>基础</i></li>
+                    <li :class="{active: confItemIndex==1}" @click="selectConfItem(1)"><i>布局</i></li>
+                    <li :class="{active: confItemIndex==2}" @click="selectConfItem(2)"><i>背景</i></li>
+                    <li :class="{active: confItemIndex==3}" @click="selectConfItem(3)"><i>搜索</i></li>
+                    <li :class="{active: confItemIndex==4}" @click="selectConfItem(4)"><i>关于</i></li>
+                    <li :class="{active: confItemIndex==5}" @click="selectConfItem(5)"><i>帮助</i></li>
+                    <li :class="{active: confItemIndex==6}" @click="selectConfItem(6)"><i>合作</i></li>
+                </ul>
+            </div>
 
-                <div class="conf-panel-right">
-                    <div class="conf-frame-rt" v-show="confItemIndex == 0">
-                        <div class="set-caption"><h2>基础设置</h2><i class="far fa-times-circle" @click="cancelSetConf" title="关闭"></i></div>
-                        <div class="set-conf-list">
-                            <p><span class="set-rt"><input type="radio" value="0" @change="selectLay" v-model="showTypeB"> 文字<input type="radio" value="1" @change="selectLay" v-model="showTypeB"> 圆形
+            <div class="conf-panel-right">
+                <div class="conf-frame-rt" v-show="confItemIndex == 0">
+                    <div class="set-caption"><h2>基础设置</h2><i class="far fa-times-circle" @click="cancelSetConf" title="关闭"></i></div>
+                    <div class="set-conf-list">
+                        <p><span class="set-rt"><input type="radio" value="0" @change="selectLay" v-model="showTypeB"> 文字<input type="radio" value="1" @change="selectLay" v-model="showTypeB"> 圆形
                                 <input type="radio" value="2" @change="selectLay" v-model="showTypeB"> 圆角矩形 <input type="radio" value="3" @change="selectLay" v-model="showTypeB"> 图标</span>图标形状</p>
-                            <p><span class="set-rt"><input type="radio" value="0" @change="selectLogo" v-model="showLogoB"> 默认<input type="radio" value="1" @change="selectLogo" v-model="showLogoB"> 隐藏 <input type="radio" value="2" @change="selectLogo" v-model="showLogoB"> 时间<input type="radio" value="3" @change="selectLogo" v-model="showLogoB"> 日期</span>Logo设置</p>
-                            <p><span class="set-rt"><input type="radio" value="0" @change="selectTimeCkType" v-model="showTimeCkTypeB"> 无<input type="radio" value="1" @change="selectTimeCkType" v-model="showTimeCkTypeB"> 导航区隐藏/显示</span>点击Logo效果(建议关闭)</p>
-                            <p><span class="set-rt"><input type="radio" value="0" @change="selectTimeStyle" v-model="showTimeStyleB"> 时分<input type="radio" value="1" @change="selectTimeStyle" v-model="showTimeStyleB"> 时分秒</span>时间显示</p>
-                            <p><span class="set-rt"><input type="radio" value="0" @change="selectHot" v-model="showHotB"> 默认<input type="radio" value="1" @change="selectHot" v-model="showHotB"> 隐藏</span>热榜设置</p>
-                            <p><span class="set-rt switch">
+                        <p><span class="set-rt"><input type="radio" value="0" @change="selectLogo" v-model="showLogoB"> 默认<input type="radio" value="1" @change="selectLogo" v-model="showLogoB"> 隐藏 <input type="radio" value="2" @change="selectLogo" v-model="showLogoB"> 时间<input type="radio" value="3" @change="selectLogo" v-model="showLogoB"> 日期</span>Logo设置</p>
+                        <p><span class="set-rt"><input type="radio" value="0" @change="selectTimeCkType" v-model="showTimeCkTypeB"> 无<input type="radio" value="1" @change="selectTimeCkType" v-model="showTimeCkTypeB"> 导航区隐藏/显示</span>点击Logo效果(建议关闭)</p>
+                        <p><span class="set-rt"><input type="radio" value="0" @change="selectTimeStyle" v-model="showTimeStyleB"> 时分<input type="radio" value="1" @change="selectTimeStyle" v-model="showTimeStyleB"> 时分秒</span>时间显示</p>
+                        <p><span class="set-rt"><input type="radio" value="0" @change="selectHot" v-model="showHotB"> 默认<input type="radio" value="1" @change="selectHot" v-model="showHotB"> 隐藏</span>热榜设置</p>
+                        <p><span class="set-rt switch">
                                 <input id="urlOpenMode" type="checkbox" hidden="hidden" :checked="bUrlOpenMode==1" @click="swUrlOpenMode"/>
                                 <label for="urlOpenMode"></label></span>新标签页打开网址（建议打开）</p>
-                            <p><span class="set-rt switch">
+                        <p><span class="set-rt switch">
                                 <input id="switchWeather" type="checkbox" hidden="hidden" :checked="showWeather==1" @click="swWeather"/>
                                 <label for="switchWeather"></label></span>显示天气</p>
-                            <p><span class="set-rt switch">
+                        <p><span class="set-rt switch">
                                 <input id="switchHistory" type="checkbox" hidden="hidden" :checked="bHistory==1" @click="swHistory"/>
                                 <label for="switchHistory"></label></span>是否自动记录搜索历史</p>
-                            
-                        </div>
-                        <div class="custom-btn"><input type="button" value="关闭" @click="cancelSetConf"></div>
-                        <div class="cust-firm-info">南京百千帮信息科技有限公司版权所有&nbsp;&nbsp;<a href="https://beian.miit.gov.cn" target="_blank" rel="nofollow">苏ICP备17008083号-12</a></div>
-                    </div>
 
-                    <div class="conf-frame-rt" v-show="confItemIndex == 1">
-                        <div class="set-caption"><h2>布局设置</h2><i class="far fa-times-circle" @click="cancelSetConf" title="关闭"></i></div>
-                        <div class="set-conf-list">
-                            <p><span class="set-rt"><input type="radio" value="0" @change="selectLay" v-model="showTypeB"> 文字<input type="radio" value="1" @change="selectLay" v-model="showTypeB"> 圆形
+                    </div>
+                    <div class="custom-btn"><input type="button" value="关闭" @click="cancelSetConf"></div>
+                    <div class="cust-firm-info">南京百千帮信息科技有限公司版权所有&nbsp;&nbsp;<a href="https://beian.miit.gov.cn" target="_blank" rel="nofollow">苏ICP备17008083号-12</a></div>
+                </div>
+
+                <div class="conf-frame-rt" v-show="confItemIndex == 1">
+                    <div class="set-caption"><h2>布局设置</h2><i class="far fa-times-circle" @click="cancelSetConf" title="关闭"></i></div>
+                    <div class="set-conf-list">
+                        <p><span class="set-rt"><input type="radio" value="0" @change="selectLay" v-model="showTypeB"> 文字<input type="radio" value="1" @change="selectLay" v-model="showTypeB"> 圆形
                                 <input type="radio" value="2" @change="selectLay" v-model="showTypeB"> 圆角矩形 <input type="radio" value="3" @change="selectLay" v-model="showTypeB"> 图标</span>图标形状</p>
-                            <p><span class="set-rt"><span class="set-ys-rect" @click="getYSLayout(0)"> 默认预设 </span><span class="set-ys-rect"  @click="getYSLayout(1)"> 宽屏预设 </span><span class="set-ys-rect"  @click="getYSLayout(2)"> 居中预设 </span></span>导航预设值</p>
-                            <p><span class="set-rt switch">
+                        <p><span class="set-rt"><span class="set-ys-rect" @click="getYSLayout(0)"> 默认预设 </span><span class="set-ys-rect"  @click="getYSLayout(1)"> 宽屏预设 </span><span class="set-ys-rect"  @click="getYSLayout(2)"> 居中预设 </span></span>导航预设值</p>
+                        <p><span class="set-rt switch">
                                 <input id="switchHideSrchBox" type="checkbox" hidden="hidden" :checked="bHideSrchBox==1" @click="swHideSrchBox"/>
                                 <label for="switchHideSrchBox"></label></span>是否隐藏搜索框(建议关闭)</p>
-                            <p><span class="set-rt switch">
+                        <p><span class="set-rt switch">
                                 <input id="switchHideNav" type="checkbox" hidden="hidden" :checked="bHideNav==1" @click="swHideNav"/>
                                 <label for="switchHideNav"></label></span>是否隐藏导航区(建议关闭)</p>
-                            <p><span class="set-rt switch">
+                        <p><span class="set-rt switch">
                                 <input id="switchHideIcoName" type="checkbox" hidden="hidden" :checked="bHideIcoName==1" @click="swHideIcoName"/>
                                 <label for="switchHideIcoName"></label></span>是否隐藏图标名称(文字式无效)</p>
-                            <p><span class="set-rt"><output>{{navTop}}</output>px</span><span class="set-inline">搜索框位置(0px)</span><input type="range" min="0" max="240" step="1" :value="navTop" id="my-nav-top" @input="updateVueUI('my-nav-top')"></p>
-                            <p><span class="set-rt"><output>{{siteWidth}}</output>px</span><span class="set-inline">导航区宽度(1200px)</span><input type="range" min="1020" max="1900" step="10" :value="siteWidth" id="my-site-width" @input="updateVueUI('my-site-width')"></p>
-                            <p><span class="set-rt"><output>{{siteColDis}}</output>px</span><span class="set-inline">图标列间距(115px)</span><input type="range" min="72" max="200" step="1" :value="siteColDis" id="my-site-col-dis" @input="updateVueUI('my-site-col-dis')"></p>
-                            <p><span class="set-rt"><output>{{siteRowDis}}</output>px</span><span class="set-inline">图标行间距(10px)</span><input type="range" min="0" max="40" step="1" :value="siteRowDis" id="my-site-row-dis" @input="updateVueUI('my-site-row-dis')"></p>
-                                                    </div>
+                        <p><span class="set-rt"><output>{{navTop}}</output>px</span><span class="set-inline">搜索框位置(0px)</span><input type="range" min="0" max="240" step="1" :value="navTop" id="my-nav-top" @input="updateVueUI('my-nav-top')"></p>
+                        <p><span class="set-rt"><output>{{siteWidth}}</output>px</span><span class="set-inline">导航区宽度(1200px)</span><input type="range" min="1020" max="1900" step="10" :value="siteWidth" id="my-site-width" @input="updateVueUI('my-site-width')"></p>
+                        <p><span class="set-rt"><output>{{siteColDis}}</output>px</span><span class="set-inline">图标列间距(115px)</span><input type="range" min="72" max="200" step="1" :value="siteColDis" id="my-site-col-dis" @input="updateVueUI('my-site-col-dis')"></p>
+                        <p><span class="set-rt"><output>{{siteRowDis}}</output>px</span><span class="set-inline">图标行间距(10px)</span><input type="range" min="0" max="40" step="1" :value="siteRowDis" id="my-site-row-dis" @input="updateVueUI('my-site-row-dis')"></p>
+                    </div>
 
-                        <div class="custom-btn"><input type="button" value="保存到本地" onclick="saveSetConfNew2()">&nbsp;&nbsp;&nbsp;<input
+                    <div class="custom-btn"><input type="button" value="保存到本地" onclick="saveSetConfNew2()">&nbsp;&nbsp;&nbsp;<input
                             type="button" value="关闭" @click="cancelSetConf"></div>
-                    </div>
-                    <div class="conf-frame-rt" v-show="confItemIndex == 2">
-                        <div class="set-caption"><h2>背景设置</h2><i class="far fa-times-circle" @click="cancelSetConf" title="关闭"></i></div>
-                        <div class="set-conf-list">
-                            <p>背景</p>
-                            <div class="bk-img-top">
-                                <div class="bk-demo-img-fr">
-                                    <div class="bk-demo-img"><img :src="bkDemoThumb"/>
-                                    </div>
-                                    <div class="bk-img-btn">
-                                        <button @click="showModelTheme()">更换背景</button>
-                                    </div>
+                </div>
+                <div class="conf-frame-rt" v-show="confItemIndex == 2">
+                    <div class="set-caption"><h2>背景设置</h2><i class="far fa-times-circle" @click="cancelSetConf" title="关闭"></i></div>
+                    <div class="set-conf-list">
+                        <p>背景</p>
+                        <div class="bk-img-top">
+                            <div class="bk-demo-img-fr">
+                                <div class="bk-demo-img"><img :src="bkDemoThumb"/>
+                                </div>
+                                <div class="bk-img-btn">
+                                    <button @click="showModelTheme()">更换背景</button>
                                 </div>
                             </div>
-                            <p><span class="set-rt"><input type="radio" value="0" @change="selMaskType" v-model="maskTypeB"> 白色<input type="radio" value="1" @change="selMaskType" v-model="maskTypeB"> 黑色
+                        </div>
+                        <p><span class="set-rt"><input type="radio" value="0" @change="selMaskType" v-model="maskTypeB"> 白色<input type="radio" value="1" @change="selMaskType" v-model="maskTypeB"> 黑色
                                 <input type="radio" value="2" @change="selMaskType" v-model="maskTypeB"> 红色 <input type="radio" value="3" @change="selMaskType" v-model="maskTypeB"> 绿色 <input type="radio" value="4" @change="selMaskType" v-model="maskTypeB"> 蓝色</span>遮罩颜色</p>
-                            <p><span class="set-rt"><output>{{maskVal}}</output></span><span class="set-inline">遮罩(0)</span><input type="range" min="0" max="10" step="1" :value="maskVal" id="back-mask-val" @input="updateBackConf('back-mask-val')"></p>
-                            <p><span class="set-rt"><output>{{blurVal}}</output>px</span><span class="set-inline">模糊(0px)</span><input type="range" min="0" max="40" step="1" :value="blurVal" id="back-blur-val" @input="updateBackConf('back-blur-val')"></p>
+                        <p><span class="set-rt"><output>{{maskVal}}</output></span><span class="set-inline">遮罩(0)</span><input type="range" min="0" max="10" step="1" :value="maskVal" id="back-mask-val" @input="updateBackConf('back-mask-val')"></p>
+                        <p><span class="set-rt"><output>{{blurVal}}</output>px</span><span class="set-inline">模糊(0px)</span><input type="range" min="0" max="40" step="1" :value="blurVal" id="back-blur-val" @input="updateBackConf('back-blur-val')"></p>
 
-                        </div>
-
-                        <div class="custom-btn"><input type="button" value="保存" @click="saveBackConf()">&nbsp;&nbsp;&nbsp;<input
-                                type="button" value="关闭" @click="cancelSetConf"></div>
                     </div>
 
-                    <div class="conf-frame-rt" v-show="confItemIndex == 3">
-                        <div class="set-caption"><h2>搜索引擎设置（第3列）</h2><i class="far fa-times-circle" @click="cancelSetConf" title="关闭"></i></div>
-                                                <div class="set-conf-list">
-                            <p>提示：登录后可设置</p>
-                        </div>
-                                            </div>
-                    <div class="conf-frame-rt" v-show="confItemIndex == 4">
-                        <div class="set-caption"><h2>关于</h2><i class="far fa-times-circle" @click="cancelSetConf" title="关闭"></i></div>
-                        <div class="set-conf-list">
-                            <p><i class="far fa-hand-point-right cust-dist-rt"></i><a href="/aboutus" target="_blank" rel="nofollow">关于我们</a></p>
-                            <p><i class="far fa-hand-point-right cust-dist-rt"></i><a href="/friendlink" target="_blank">友情链接</a></p>
-                            <p><i class="far fa-hand-point-right cust-dist-rt"></i><a href="/contactus" target="_blank" rel="nofollow">联系我们</a></p>
-                            <p><i class="far fa-hand-point-right cust-dist-rt"></i><a href="/copyright" target="_blank" rel="nofollow">版权声明</a></p>
-                            <p><i class="far fa-hand-point-right cust-dist-rt"></i><a href="/privacy" target="_blank" rel="nofollow">隐私政策</a></p>
-                        </div>
-                    </div>
-                    <div class="conf-frame-rt" v-show="confItemIndex == 5">
-                        <div class="set-caption"><h2>使用帮助</h2><i class="far fa-times-circle" @click="cancelSetConf" title="关闭"></i></div>
-                        <div class="set-conf-list">
-                            <p><strong>咪咕鱼插件：</strong><a href="https://chrome.google.com/webstore/detail/kmgchajiidnmefagfhogdohhbcglopfa" target="_blank">Chrome</a>&nbsp;&nbsp;&nbsp;<a href="https://microsoftedge.microsoft.com/addons/detail/%E5%92%AA%E5%92%95%E9%B1%BC%E4%B8%BB%E9%A1%B5/cibmpchjenhmdiajkighkdgkahfhcgjg" target="_blank">Edge插件</a>&nbsp;&nbsp;&nbsp;<a href="https://file.miguyu.com/crx/miguyu_tab.crx" target="_blank">离线版</a></p>
-                            <p>交流QQ群：584330841</p>
-                            <p><i class="far fa-hand-point-right cust-dist-rt"></i><a href="/guide" target="_blank">使用指南</a></p>
-                            <p><i class="far fa-hand-point-right cust-dist-rt"></i><a href="https://support.qq.com/product/318624" target="_blank" rel="nofollow">留言反馈</a></p>
-                            <p><strong>常见问题：</strong></p>
-                            <p><a href="https://support.qq.com/products/318624/faqs-more?id=117779" target="_blank" rel="nofollow">如何自定义背景？</a></p>
-                            <p><a href="https://support.qq.com/products/318624/faqs-more?id=113914" target="_blank" rel="nofollow">如何解决每次浏览器关闭后都要重新登录？</a></p>
-                            <p><a href="https://support.qq.com/products/318624/faqs-more?id=104018" target="_blank" rel="nofollow">如何设置咪咕鱼为浏览器主页？</a></p>
-                            <p><a href="https://www.miguyu.com/guide#guide-url-4" target="_blank" >咪咕鱼如何自定义网址？</a></p></div>
-                    </div>
-                    <div class="conf-frame-rt" v-show="confItemIndex == 6">
-                        <div class="set-caption"><h2>合作</h2><i class="far fa-times-circle" @click="cancelSetConf" title="关闭"></i></div>
-                        <div class="set-conf-list">
-                            <p><i class="far fa-hand-point-right cust-dist-rt" style="color: #b22222"></i><a href="https://www.smartread.cc/?from=mgy" target="_blank">AI读文档</a></p>
-                            <p><i class="far fa-hand-point-right cust-dist-rt" style="color: #b22222"></i><a href="https://shutu.cn/?from=miguyu" target="_blank">TreeMind树图</a></p>
+                    <div class="custom-btn"><input type="button" value="保存" @click="saveBackConf()">&nbsp;&nbsp;&nbsp;<input
+                            type="button" value="关闭" @click="cancelSetConf"></div>
+                </div>
 
-                        </div>
+                <div class="conf-frame-rt" v-show="confItemIndex == 3">
+                    <div class="set-caption"><h2>搜索引擎设置（第3列）</h2><i class="far fa-times-circle" @click="cancelSetConf" title="关闭"></i></div>
+                    <div class="set-conf-list">
+                        <p>提示：登录后可设置</p>
                     </div>
                 </div>
-            </div>
-
-        </div>
-
-        
-        <div class="activityModal" id="frm-activity" v-show="isActModelShow" v-cloak>
-            <div class="act-panel">
-                <div class="act-caption"><h2>活动入口</h2><i class="far fa-times-circle" @click="cancelActFrm" title="关闭"></i></div>
-                <div class="act-conf-list">
-                    <p class="act-hongbao"><a href="https://s.click.taobao.com/MKfK6Su" target="_blank" rel="nofollow">天猫双11超级红包会场</a></p>
-                    <p class="act-hongbao"><a href="https://u.jd.com/xCLLTI2" target="_blank" rel="nofollow">京东11.11红包主会场</a></p>
-                    <p class="act-wenjuan"><a href="http://miguyu666.mikecrm.com/2AksHdn" target="_blank" rel="nofollow">调查：您希望咪咕鱼导航提供什么样的背景图片？</a></p>
+                <div class="conf-frame-rt" v-show="confItemIndex == 4">
+                    <div class="set-caption"><h2>关于</h2><i class="far fa-times-circle" @click="cancelSetConf" title="关闭"></i></div>
+                    <div class="set-conf-list">
+                        <p><i class="far fa-hand-point-right cust-dist-rt"></i><a href="/aboutus" target="_blank" rel="nofollow">关于我们</a></p>
+                        <p><i class="far fa-hand-point-right cust-dist-rt"></i><a href="/friendlink" target="_blank">友情链接</a></p>
+                        <p><i class="far fa-hand-point-right cust-dist-rt"></i><a href="/contactus" target="_blank" rel="nofollow">联系我们</a></p>
+                        <p><i class="far fa-hand-point-right cust-dist-rt"></i><a href="/copyright" target="_blank" rel="nofollow">版权声明</a></p>
+                        <p><i class="far fa-hand-point-right cust-dist-rt"></i><a href="/privacy" target="_blank" rel="nofollow">隐私政策</a></p>
+                    </div>
                 </div>
-                <div class="custom-btn"><input type="button" value="关闭" @click="cancelActFrm"></div>
-            </div>
-        </div>
-
-        <div id="backModel" v-show="isBackModelShow" v-cloak>
-            <div class="back-panel">
-                <div class="back-left">
-                    <div class="back-item-caption"></div>
-                    <ul>
-                        <li @click="selectBackItem(0)" :class="{active: backItemIndex==0}"><i>背&nbsp;景&nbsp;库</i></li>
-                        <li @click="selectBackItem(1)" :class="{active: backItemIndex==1}"><i>网络背景</i></li>
-                    </ul>
+                <div class="conf-frame-rt" v-show="confItemIndex == 5">
+                    <div class="set-caption"><h2>使用帮助</h2><i class="far fa-times-circle" @click="cancelSetConf" title="关闭"></i></div>
+                    <div class="set-conf-list">
+                        <p><strong>咪咕鱼插件：</strong><a href="https://chrome.google.com/webstore/detail/kmgchajiidnmefagfhogdohhbcglopfa" target="_blank">Chrome</a>&nbsp;&nbsp;&nbsp;<a href="https://microsoftedge.microsoft.com/addons/detail/%E5%92%AA%E5%92%95%E9%B1%BC%E4%B8%BB%E9%A1%B5/cibmpchjenhmdiajkighkdgkahfhcgjg" target="_blank">Edge插件</a>&nbsp;&nbsp;&nbsp;<a href="https://file.miguyu.com/crx/miguyu_tab.crx" target="_blank">离线版</a></p>
+                        <p>交流QQ群：584330841</p>
+                        <p><i class="far fa-hand-point-right cust-dist-rt"></i><a href="/guide" target="_blank">使用指南</a></p>
+                        <p><i class="far fa-hand-point-right cust-dist-rt"></i><a href="https://support.qq.com/product/318624" target="_blank" rel="nofollow">留言反馈</a></p>
+                        <p><strong>常见问题：</strong></p>
+                        <p><a href="https://support.qq.com/products/318624/faqs-more?id=117779" target="_blank" rel="nofollow">如何自定义背景？</a></p>
+                        <p><a href="https://support.qq.com/products/318624/faqs-more?id=113914" target="_blank" rel="nofollow">如何解决每次浏览器关闭后都要重新登录？</a></p>
+                        <p><a href="https://support.qq.com/products/318624/faqs-more?id=104018" target="_blank" rel="nofollow">如何设置咪咕鱼为浏览器主页？</a></p>
+                        <p><a href="https://www.miguyu.com/guide#guide-url-4" target="_blank" >咪咕鱼如何自定义网址？</a></p></div>
                 </div>
-                <div class="back-right">
-                    <div class="back-content">
-                        <ul class="back-db-fr" v-show="backItemIndex == 0">
-                            <li v-for="(item,index) in themeLists" :class="{active: item.id==selThemeIndex}"
-                                @click="selectTheme(item.id,0)">
-                                <!--<img :src="item.thumb"/>-->
-                                <!--<img v-lazyload="item.thumb"/>-->
-                                <img :data-original="item.thumb"/>
-                                <p>{{item.name}}</p><i class="fas fa-check-circle"></i>
-                            </li>
-                                                    </ul>
-                        <ul v-show="backItemIndex == 1">
-                            <div class="net-color-fr">
-                                <li :class="{active: selThemeIndex == -2}" @click="selectTheme(-2,2)">
-                                    <img src="https://cdn.miguyu.com/imgs/bg/thumb0.jpg"/>
-                                    <p>网络背景</p>
-                                    <i class="fas fa-check-circle"></i>
-                                </li>
-                                <div class="set-color-box" v-show="selThemeIndex == -2">
-                                    <div class="pic-url-fr"><label>图片地址(https://开头)：</label><input type="text"
-                                                                                                   class="input-text-style"
-                                                                                                   id="net-pic-url"
-                                                                                                   name="net-pic-url"
-                                                                                                   maxlength="256"
-                                                                                                   size="30"
-                                                                                                   placeholder="请输入网络图片地址"
-                                                                                                   @keyup="stNetBg"
-                                                                                                   @mouseup="stNetBg">
-                                    </div>
-                                    <label>文字颜色：</label><input id="text-color" class="jscolor" @change="setTextColor(0)"
-                                                               value="111111">&nbsp;&nbsp;&nbsp;<label>栏目颜色：</label><input
-                                        id="cat-color" class="jscolor" @change="setTextColor(1)" value="111111">&nbsp;&nbsp;&nbsp;<input
-                                        type="checkbox" id="check-ray" class="cust-checkbox" :checked="isRayChecked"
-                                        @click="checkRay"><label
-                                        style="color: #F2F2F2">光亮</label>&nbsp;&nbsp;&nbsp;<label>光亮颜色：</label><input
-                                        id="ray-color" class="jscolor" @change="setTextColor(2)" value="FFFFFF">
-                                </div>
-                            </div>
-                        </ul>
+                <div class="conf-frame-rt" v-show="confItemIndex == 6">
+                    <div class="set-caption"><h2>合作</h2><i class="far fa-times-circle" @click="cancelSetConf" title="关闭"></i></div>
+                    <div class="set-conf-list">
+                        <p><i class="far fa-hand-point-right cust-dist-rt" style="color: #b22222"></i><a href="https://www.smartread.cc/?from=mgy" target="_blank">AI读文档</a></p>
+                        <p><i class="far fa-hand-point-right cust-dist-rt" style="color: #b22222"></i><a href="https://shutu.cn/?from=miguyu" target="_blank">TreeMind树图</a></p>
 
                     </div>
-                    <p><button id="saveTheme" @click="saveTheme">保存</button>&nbsp;&nbsp;&nbsp;<button id="closeTheme" @click="closeTheme">关闭</button></p>
-                    <p class="theme-tip"></p>
                 </div>
             </div>
         </div>
 
-                <div class="loginModal" id="frm-login-modal">
-            <div class="login-panel" id="frm-log">
-                <div class="login-caption"><h2>用户登录</h2><i class="far fa-times-circle" @click="cancelLogin" title="取消"></i></div>
-                <div class="xx-member">
-                    <form method="post" action="" id="myform5" name="myform5" onsubmit="return checkLogInfo()">
-                        <div class="input">
-                            <input type="text" class="text-style" id="mobile5" name="mobile5" maxlength="11" size="36" placeholder="请输入手机号">
-                        </div>
-                        <div class="input">
-                            <input type="password" class="text-style" id="password5" name="password5" size="36" placeholder="请输入密码">
-                        </div>
-                        <div class="input-submit"><input type="submit" name="dosubmit5" id="dosubmit5" value="登录"></div>
-                        <p class="toggle-login">
-                                <span class="toggle-txt-lt"></span><span
-                                class="toggle-txt-rt"><em class="handPo" @click="showFgt()">忘记密码</em>&nbsp;|&nbsp;<em class="handPo" @click="toggleMode(1)">注册</em></span>
-                        </p>
-                        <p class="error-log-tip"></p>
-                        <div class="log-space-line"></div>
-                        <div class="social-conn"><span class="handPo" onclick="qqLogin()"><img src="https://cdn.miguyu.com/imgs/appicon/01_qq_logo.png">QQ登录</span></div>
-                    </form>
-                </div>
-            </div>
-
-            <div class="login-panel" id="frm-reg">
-                <div class="login-caption"><h2>用户注册</h2><i class="far fa-times-circle" @click="cancelLogin" title="取消"></i></div>
-                <div class="xx-member">
-                    <form method="post" action="/member/public_register" id="myform" name="myform">
-                        <div class="input">
-                            <input type="text" class="text-style"  id="mobile" name="mobile" maxlength="11" size="36" placeholder="输入手机号">
-                        </div>
-                        <div class="input">
-                            <input type="password" class="text-style" id="password" name="password" size="36" placeholder="设置密码">
-                        </div>
-                        <div class="input verify-wrap" style="height: 40px; width: 450px" id="verify-wrap"></div>
-                        <div class="input required" style="min-height:70px; margin-top: 20px;">
-                            <input type="text" class="text-style input-code" id="mobile_verify" name="mobile_verify"
-                                   size="36" placeholder="短信验证码"><span id="mobile_div"><button id="isGetVerify"
-                                                                                     class="btn-get-smscode"
-                                                                                     type="button"
-                                                                                     disabled>获取验证码</button></span>
-                        </div>
-                        <p class="agreemen-txt"><input type="checkbox" name="protocol" id="protocol" value="" checked> 请阅读<a href="/privacy" target="_blank">隐私政策</a></p>
-                        <div class="input-submit"><input type="submit" name="dosubmit" id="dosubmit" disabled value="注册" onclick="subReg(this.form)"></div>
-                        <p class="toggle-login"><span>已有账号，请 <em class="handPo" @click="toggleMode(0)">登录</em></span></p>
-                    </form>
-                </div>
-            </div>
-
-            <div class="login-panel" id="frm-forget-pw">
-                <div class="login-caption"><h2>忘记密码</h2><i class="far fa-times-circle" title="返回" @click="backLogin()"></i></div>
-                <div class="xx-member">
-                    <form method="post" action="" id="myform8" name="myform8" onsubmit="return checkFgtInfo()">
-                        <div class="input">
-                            <input type="text" class="text-style" id="mobile8" name="mobile8" maxlength="11" size="36" placeholder="请输入手机号">
-                        </div>
-                        <div class="input verify-wrap" style="height: 40px; width: 450px" id="verify-wrap2"></div>
-                        <div class="input required" style="min-height:70px; margin-top: 20px;">
-                            <input type="text" class="text-style input-code" id="mobile_verify2" name="mobile_verify2"
-                                   size="36" placeholder="短信验证码"><span id="mobile_div2"><button id="isGetVerify2"
-                                                                                               class="btn-get-smscode"
-                                                                                               type="button"
-                                                                                               disabled>获取验证码</button></span>
-                        </div>
-                        <div class="input-submit"><input type="submit" name="dosubmit8" id="dosubmit8" value="确定"></div>
-                        <p class="toggle-login">
-                            <span><em class="handPo" @click="backLogin()">返回登录</em></span>
-                        </p>
-                        <p class="error-fgt-tip"></p>
-                    </form>
-                </div>
-            </div>
-
-            <div class="login-panel" id="frm-reset-pw">
-                <div class="login-caption"><h2>重置密码</h2><i class="far fa-times-circle" title="退出" @click="cancelReset()"></i></div>
-                <div class="xx-member">
-                    <form method="post" action="" id="myform9" name="myform9" onsubmit="return checkResetInfo()">
-                        <div class="input"><input type="password" class="text-style" id="password9" name="password9" size="36" placeholder="输入密码"></div>
-                        <div class="input"><input type="password" class="text-style" id="password10" name="password10" size="36" placeholder="再次输入密码"></div>
-                        <div class="input-submit"><input type="submit" name="dosubmit9" id="dosubmit9" value="确定"></div>
-                        <p class="toggle-login"><span class="toggle-txt-lt"></span><span class="toggle-txt-rt"></span></p>
-                        <p class="error-reset-tip"></p>
-                    </form>
-                </div>
-            </div>
-        </div>
-        
-        
-
-        <div id="footer" v-cloak>
-            <p class="bot-link"><span class="handPo" onclick="openMiguyuDialog(1)" v-show="showHotB==0" v-cloak>&nbsp;&nbsp;<i class="fas fa-fire-alt"></i>&nbsp;热榜</span>&nbsp;&nbsp;<span class="handPo" @click="showSetConf()"><i class="fas fa-cog"></i>&nbsp;设置</span>&nbsp;&nbsp;<span class="handPo" @click="showModelTheme()"><i class="fas fa-tshirt"></i>&nbsp;背景</span>&nbsp;&nbsp;<span class="handPo" @click="showModelSite()"><i class="fas fa-globe"></i>&nbsp;网址</span>&nbsp;&nbsp;<span class="handPo" @click="showLogin()">登录</span>&nbsp;&nbsp;</p>
-                        <p class="footer-info" v-show="bFooterInfo==0" :style="{'height':(bFooterInfo==0?'12px':'0') }">Copyright © 2021-2023 南京百千帮信息科技有限公司，<a href="https://beian.miit.gov.cn" target="_blank" rel="nofollow">苏ICP备17008083号-12</a>&nbsp;&nbsp;&nbsp;<a href="/friendlink" target="_blank">友情链接</a>&nbsp;&nbsp;<a href="/aboutus" target="_blank" rel="nofollow">关于我们</a>&nbsp;&nbsp;<a href="/guide" target="_blank">使用指南</a>&nbsp;&nbsp;<span class="handPo" onclick="giveSubject()">留言反馈</span></p>
-                    </div>
     </div>
 
-    <div class="miguyu-dialog-1" id="hotbang">
-        <div class="dialog-fr" @click="hotShowOut"></div>
-        <div class="hot-bang"  v-show="isHotWinShow"  v-cloak @click="hotShowIn">
-            <div class="hot-frame-top">
-                <div class="hot-frame-top-lt"></div>
-                <div class="hot-frame-top-tit"><img src="//cdn.miguyu.com/icon/hotbang.png"></div>
-                <div class="hot-frame-top-rt"><i class="far fa-times-circle" title="退出" @click="cancelHotFrm()"></i></div>
-                <div class="hot-frame-card-type">
-                    <button class="hot-type-btn-set" :class="{active: hotTypeID==-1}" @click="hotFitByType(-1)">我的收藏</button>
-                    <button class="hot-type-btn-set" :class="{active: hotTypeID== 0}" @click="hotFitByType(0)">所有</button>
-                    <button class="hot-type-btn-set" :class="{active: hotTypeID== 1}" @click="hotFitByType(1)">综合</button>
-                    <button class="hot-type-btn-set" :class="{active: hotTypeID== 2}" @click="hotFitByType(2)">视频</button>
-                    <button class="hot-type-btn-set" :class="{active: hotTypeID== 3}" @click="hotFitByType(3)">社区</button>
-                    <button class="hot-type-btn-set" :class="{active: hotTypeID== 4}" @click="hotFitByType(4)">科技</button>
-                </div>
+
+    <div class="activityModal" id="frm-activity" v-show="isActModelShow" v-cloak>
+        <div class="act-panel">
+            <div class="act-caption"><h2>活动入口</h2><i class="far fa-times-circle" @click="cancelActFrm" title="关闭"></i></div>
+            <div class="act-conf-list">
+                <p class="act-hongbao"><a href="https://s.click.taobao.com/MKfK6Su" target="_blank" rel="nofollow">天猫双11超级红包会场</a></p>
+                <p class="act-hongbao"><a href="https://u.jd.com/xCLLTI2" target="_blank" rel="nofollow">京东11.11红包主会场</a></p>
+                <p class="act-wenjuan"><a href="http://miguyu666.mikecrm.com/2AksHdn" target="_blank" rel="nofollow">调查：您希望咪咕鱼导航提供什么样的背景图片？</a></p>
             </div>
-            <div class="hot-frame-left">
+            <div class="custom-btn"><input type="button" value="关闭" @click="cancelActFrm"></div>
+        </div>
+    </div>
+
+    <div id="backModel" v-show="isBackModelShow" v-cloak>
+        <div class="back-panel">
+            <div class="back-left">
+                <div class="back-item-caption"></div>
                 <ul>
-                    <li v-for="item11 in hotSrcInfos"  :class="{active: hotItemIndex==item11.id}" @click="getHotInfo(item11.id)" @mouseenter="hotHover(item11.id)" @mouseleave="delHotHover(0)"><div class="hot-des-img-fr"><img :src="item11.logo"></div><i class="hot-cat-tit">{{item11.title}}{{item11.subtitle}}</i><i class="far fa-star" title="取消收藏" v-if="hotFavShow(item11.id)>=0" @click="cancelHotFav(item11.id)"></i><i class="fas fa-star" title="收藏" v-if="hotFavShow(item11.id)<0 && item11.id == hoverHotIndex"  @click="subHotFav(item11.id)" ></i><div class="hot-fav-updown" v-show="hotTypeID==-1"><i class="fas fa-caret-up hot-up-down" title="向上排序" @click="hotFavUp(item11.id)"></i></div></li>
+                    <li @click="selectBackItem(0)" :class="{active: backItemIndex==0}"><i>背&nbsp;景&nbsp;库</i></li>
+                    <li @click="selectBackItem(1)" :class="{active: backItemIndex==1}"><i>网络背景</i></li>
                 </ul>
             </div>
-
-            <div class="hot-frame-rt">
-                <div class="hot-descrip"><div class="hot-des-lf"><div class="hot-des-img-fr"><img :src="hotDescInfo.logo"></div><span>{{hotDescInfo.title}}{{hotDescInfo.subtitle}}</span></div> </div>
-                <div class="hot-list-fr">
-                    <div v-for="item9 in hotBangLists.data" class="hot-info-text">
-                        <div class="hot-info-order"><span :style="hotTitColor(item9.index)">{{item9.index}}</span></div>
-                        <a :href="item9.link" target="_blank">
-                            <div class="hot-info-title">{{item9.title}}</div>
-                        </a>
-                        <div class="hot-info-rd">{{item9.hot}}</div>
-                    </div>
+            <div class="back-right">
+                <div class="back-content">
+                    <ul class="back-db-fr" v-show="backItemIndex == 0">
+                        <li v-for="(item,index) in themeLists" :class="{active: item.id==selThemeIndex}"
+                            @click="selectTheme(item.id,0)">
+                            <!--<img :src="item.thumb"/>-->
+                            <!--<img v-lazyload="item.thumb"/>-->
+                            <img :data-original="item.thumb"/>
+                            <p>{{item.name}}</p><i class="fas fa-check-circle"></i>
+                        </li>
+                    </ul>
+                    <ul v-show="backItemIndex == 1">
+                        <div class="net-color-fr">
+                            <li :class="{active: selThemeIndex == -2}" @click="selectTheme(-2,2)">
+                                <img src="https://cdn.miguyu.com/imgs/bg/thumb0.jpg"/>
+                                <p>网络背景</p>
+                                <i class="fas fa-check-circle"></i>
+                            </li>
+                            <div class="set-color-box" v-show="selThemeIndex == -2">
+                                <div class="pic-url-fr"><label>图片地址(https://开头)：</label><input type="text"
+                                                                                               class="input-text-style"
+                                                                                               id="net-pic-url"
+                                                                                               name="net-pic-url"
+                                                                                               maxlength="256"
+                                                                                               size="30"
+                                                                                               placeholder="请输入网络图片地址"
+                                                                                               @keyup="stNetBg"
+                                                                                               @mouseup="stNetBg">
+                                </div>
+                                <label>文字颜色：</label><input id="text-color" class="jscolor" @change="setTextColor(0)"
+                                                           value="111111">&nbsp;&nbsp;&nbsp;<label>栏目颜色：</label><input
+                                    id="cat-color" class="jscolor" @change="setTextColor(1)" value="111111">&nbsp;&nbsp;&nbsp;<input
+                                    type="checkbox" id="check-ray" class="cust-checkbox" :checked="isRayChecked"
+                                    @click="checkRay"><label
+                                    style="color: #F2F2F2">光亮</label>&nbsp;&nbsp;&nbsp;<label>光亮颜色：</label><input
+                                    id="ray-color" class="jscolor" @change="setTextColor(2)" value="FFFFFF">
+                            </div>
+                        </div>
+                    </ul>
 
                 </div>
-            </div>
-    </div>
-    </div>
-
-    <div id="help">
-        <loading v-show="showLoading">
-            <div class="loading-overlay">
-                <div class="sk-three-bounce">
-                    <div class="sk-child sk-bounce1"></div>
-                    <div class="sk-child sk-bounce2"></div>
-                    <div class="sk-child sk-bounce3"></div>
-                </div>
-            </div>
-        </loading>
-        <div class="dialogModal" v-show="showDialog" v-cloak>
-            <div class="dialog-panel">
-                <div class="dialog-header"><h2>注  意</h2></div>
-                <div class="dialog-body">
-                    <p class="dialog-text">
-                        {{dialogText}}
-                    </p>
-                </div>
-                <div class="dialog-btn"><button id="dialogOKbtn" @click="synoOK">确定</button></div>
+                <p><button id="saveTheme" @click="saveTheme">保存</button>&nbsp;&nbsp;&nbsp;<button id="closeTheme" @click="closeTheme">关闭</button></p>
+                <p class="theme-tip"></p>
             </div>
         </div>
     </div>
 
-    <script>
-        var helpVue = new Vue({
-            el: '#help',
-            data: {
-                showLoading: false,
-                showDialog: false,
-                dialogText: '',
-                countTime: 3
+    <div class="loginModal" id="frm-login-modal">
+        <div class="login-panel" id="frm-log">
+            <div class="login-caption"><h2>用户登录</h2><i class="far fa-times-circle" @click="cancelLogin" title="取消"></i></div>
+            <div class="xx-member">
+                <form method="post" action="" id="myform5" name="myform5" onsubmit="return checkLogInfo()">
+                    <div class="input">
+                        <input type="text" class="text-style" id="mobile5" name="mobile5" maxlength="11" size="36" placeholder="请输入手机号">
+                    </div>
+                    <div class="input">
+                        <input type="password" class="text-style" id="password5" name="password5" size="36" placeholder="请输入密码">
+                    </div>
+                    <div class="input-submit"><input type="submit" name="dosubmit5" id="dosubmit5" value="登录"></div>
+                    <p class="toggle-login">
+                        <span class="toggle-txt-lt"></span><span
+                            class="toggle-txt-rt"><em class="handPo" @click="showFgt()">忘记密码</em>&nbsp;|&nbsp;<em class="handPo" @click="toggleMode(1)">注册</em></span>
+                    </p>
+                    <p class="error-log-tip"></p>
+                    <div class="log-space-line"></div>
+                    <div class="social-conn"><span class="handPo" onclick="qqLogin()"><img src="https://cdn.miguyu.com/imgs/appicon/01_qq_logo.png">QQ登录</span></div>
+                </form>
+            </div>
+        </div>
+
+        <div class="login-panel" id="frm-reg">
+            <div class="login-caption"><h2>用户注册</h2><i class="far fa-times-circle" @click="cancelLogin" title="取消"></i></div>
+            <div class="xx-member">
+                <form method="post" action="/member/public_register" id="myform" name="myform">
+                    <div class="input">
+                        <input type="text" class="text-style"  id="mobile" name="mobile" maxlength="11" size="36" placeholder="输入手机号">
+                    </div>
+                    <div class="input">
+                        <input type="password" class="text-style" id="password" name="password" size="36" placeholder="设置密码">
+                    </div>
+                    <div class="input verify-wrap" style="height: 40px; width: 450px" id="verify-wrap"></div>
+                    <div class="input required" style="min-height:70px; margin-top: 20px;">
+                        <input type="text" class="text-style input-code" id="mobile_verify" name="mobile_verify"
+                               size="36" placeholder="短信验证码"><span id="mobile_div"><button id="isGetVerify"
+                                                                                           class="btn-get-smscode"
+                                                                                           type="button"
+                                                                                           disabled>获取验证码</button></span>
+                    </div>
+                    <p class="agreemen-txt"><input type="checkbox" name="protocol" id="protocol" value="" checked> 请阅读<a href="/privacy" target="_blank">隐私政策</a></p>
+                    <div class="input-submit"><input type="submit" name="dosubmit" id="dosubmit" disabled value="注册" onclick="subReg(this.form)"></div>
+                    <p class="toggle-login"><span>已有账号，请 <em class="handPo" @click="toggleMode(0)">登录</em></span></p>
+                </form>
+            </div>
+        </div>
+
+        <div class="login-panel" id="frm-forget-pw">
+            <div class="login-caption"><h2>忘记密码</h2><i class="far fa-times-circle" title="返回" @click="backLogin()"></i></div>
+            <div class="xx-member">
+                <form method="post" action="" id="myform8" name="myform8" onsubmit="return checkFgtInfo()">
+                    <div class="input">
+                        <input type="text" class="text-style" id="mobile8" name="mobile8" maxlength="11" size="36" placeholder="请输入手机号">
+                    </div>
+                    <div class="input verify-wrap" style="height: 40px; width: 450px" id="verify-wrap2"></div>
+                    <div class="input required" style="min-height:70px; margin-top: 20px;">
+                        <input type="text" class="text-style input-code" id="mobile_verify2" name="mobile_verify2"
+                               size="36" placeholder="短信验证码"><span id="mobile_div2"><button id="isGetVerify2"
+                                                                                            class="btn-get-smscode"
+                                                                                            type="button"
+                                                                                            disabled>获取验证码</button></span>
+                    </div>
+                    <div class="input-submit"><input type="submit" name="dosubmit8" id="dosubmit8" value="确定"></div>
+                    <p class="toggle-login">
+                        <span><em class="handPo" @click="backLogin()">返回登录</em></span>
+                    </p>
+                    <p class="error-fgt-tip"></p>
+                </form>
+            </div>
+        </div>
+
+        <div class="login-panel" id="frm-reset-pw">
+            <div class="login-caption"><h2>重置密码</h2><i class="far fa-times-circle" title="退出" @click="cancelReset()"></i></div>
+            <div class="xx-member">
+                <form method="post" action="" id="myform9" name="myform9" onsubmit="return checkResetInfo()">
+                    <div class="input"><input type="password" class="text-style" id="password9" name="password9" size="36" placeholder="输入密码"></div>
+                    <div class="input"><input type="password" class="text-style" id="password10" name="password10" size="36" placeholder="再次输入密码"></div>
+                    <div class="input-submit"><input type="submit" name="dosubmit9" id="dosubmit9" value="确定"></div>
+                    <p class="toggle-login"><span class="toggle-txt-lt"></span><span class="toggle-txt-rt"></span></p>
+                    <p class="error-reset-tip"></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="footer" v-cloak>
+        <p class="bot-link"><span class="handPo" onclick="openMiguyuDialog(1)" v-show="showHotB==0" v-cloak>&nbsp;&nbsp;<i class="fas fa-fire-alt"></i>&nbsp;热榜</span>&nbsp;&nbsp;<span class="handPo" @click="showSetConf()"><i class="fas fa-cog"></i>&nbsp;设置</span>&nbsp;&nbsp;<span class="handPo" @click="showModelTheme()"><i class="fas fa-tshirt"></i>&nbsp;背景</span>&nbsp;&nbsp;<span class="handPo" @click="showModelSite()"><i class="fas fa-globe"></i>&nbsp;网址</span>&nbsp;&nbsp;<span class="handPo" @click="showLogin()">登录</span>&nbsp;&nbsp;</p>
+        <p class="footer-info" v-show="bFooterInfo==0" :style="{'height':(bFooterInfo==0?'12px':'0') }">Copyright © 2021-2023 南京百千帮信息科技有限公司，<a href="https://beian.miit.gov.cn" target="_blank" rel="nofollow">苏ICP备17008083号-12</a>&nbsp;&nbsp;&nbsp;<a href="/friendlink" target="_blank">友情链接</a>&nbsp;&nbsp;<a href="/aboutus" target="_blank" rel="nofollow">关于我们</a>&nbsp;&nbsp;<a href="/guide" target="_blank">使用指南</a>&nbsp;&nbsp;<span class="handPo" onclick="giveSubject()">留言反馈</span></p>
+    </div>
+</div>
+
+<div class="miguyu-dialog-1" id="hotbang">
+    <div class="dialog-fr" @click="hotShowOut"></div>
+    <div class="hot-bang"  v-show="isHotWinShow"  v-cloak @click="hotShowIn">
+        <div class="hot-frame-top">
+            <div class="hot-frame-top-lt"></div>
+            <div class="hot-frame-top-tit"><img src="//cdn.miguyu.com/icon/hotbang.png"></div>
+            <div class="hot-frame-top-rt"><i class="far fa-times-circle" title="退出" @click="cancelHotFrm()"></i></div>
+            <div class="hot-frame-card-type">
+                <button class="hot-type-btn-set" :class="{active: hotTypeID==-1}" @click="hotFitByType(-1)">我的收藏</button>
+                <button class="hot-type-btn-set" :class="{active: hotTypeID== 0}" @click="hotFitByType(0)">所有</button>
+                <button class="hot-type-btn-set" :class="{active: hotTypeID== 1}" @click="hotFitByType(1)">综合</button>
+                <button class="hot-type-btn-set" :class="{active: hotTypeID== 2}" @click="hotFitByType(2)">视频</button>
+                <button class="hot-type-btn-set" :class="{active: hotTypeID== 3}" @click="hotFitByType(3)">社区</button>
+                <button class="hot-type-btn-set" :class="{active: hotTypeID== 4}" @click="hotFitByType(4)">科技</button>
+            </div>
+        </div>
+        <div class="hot-frame-left">
+            <ul>
+                <li v-for="item11 in hotSrcInfos"  :class="{active: hotItemIndex==item11.id}" @click="getHotInfo(item11.id)" @mouseenter="hotHover(item11.id)" @mouseleave="delHotHover(0)"><div class="hot-des-img-fr"><img :src="item11.logo"></div><i class="hot-cat-tit">{{item11.title}}{{item11.subtitle}}</i><i class="far fa-star" title="取消收藏" v-if="hotFavShow(item11.id)>=0" @click="cancelHotFav(item11.id)"></i><i class="fas fa-star" title="收藏" v-if="hotFavShow(item11.id)<0 && item11.id == hoverHotIndex"  @click="subHotFav(item11.id)" ></i><div class="hot-fav-updown" v-show="hotTypeID==-1"><i class="fas fa-caret-up hot-up-down" title="向上排序" @click="hotFavUp(item11.id)"></i></div></li>
+            </ul>
+        </div>
+
+        <div class="hot-frame-rt">
+            <div class="hot-descrip"><div class="hot-des-lf"><div class="hot-des-img-fr"><img :src="hotDescInfo.logo"></div><span>{{hotDescInfo.title}}{{hotDescInfo.subtitle}}</span></div> </div>
+            <div class="hot-list-fr">
+                <div v-for="item9 in hotBangLists.data" class="hot-info-text">
+                    <div class="hot-info-order"><span :style="hotTitColor(item9.index)">{{item9.index}}</span></div>
+                    <a :href="item9.link" target="_blank">
+                        <div class="hot-info-title">{{item9.title}}</div>
+                    </a>
+                    <div class="hot-info-rd">{{item9.hot}}</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="help">
+    <loading v-show="showLoading">
+        <div class="loading-overlay">
+            <div class="sk-three-bounce">
+                <div class="sk-child sk-bounce1"></div>
+                <div class="sk-child sk-bounce2"></div>
+                <div class="sk-child sk-bounce3"></div>
+            </div>
+        </div>
+    </loading>
+    <div class="dialogModal" v-show="showDialog" v-cloak>
+        <div class="dialog-panel">
+            <div class="dialog-header"><h2>注  意</h2></div>
+            <div class="dialog-body">
+                <p class="dialog-text">
+                    {{dialogText}}
+                </p>
+            </div>
+            <div class="dialog-btn"><button id="dialogOKbtn" @click="synoOK">确定</button></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var helpVue = new Vue({
+        el: '#help',
+        data: {
+            showLoading: false,
+            showDialog: false,
+            dialogText: '',
+            countTime: 3
+        },
+        methods: {
+            countDown:function() {
+                this.dialogText = '检测到网址数据不同步，需刷新页面，将在'+this.countTime + 's后刷新！';
+                that = this;
+                var tmpCount = this.countTime;
+                let clock = window.setInterval(function(){
+                    tmpCount--;
+                    that.dialogText = '检测到网址数据不同步，需刷新页面，将在'+tmpCount + 's后刷新！';
+                    if (tmpCount <=0 ){
+                        location.reload();
+                    }
+                    console.log(tmpCount);
+                },1000);
             },
-            methods: {
-                countDown:function() {
-                    this.dialogText = '检测到网址数据不同步，需刷新页面，将在'+this.countTime + 's后刷新！';
-                    that = this;
-                    var tmpCount = this.countTime;
-                    let clock = window.setInterval(function(){
-                        tmpCount--;
-                        that.dialogText = '检测到网址数据不同步，需刷新页面，将在'+tmpCount + 's后刷新！';
-                        if (tmpCount <=0 ){
-                            location.reload();
-                        }
-                        console.log(tmpCount);
-                    },1000);
-                },
-                synoOK:function(){
-                    location.reload();
-                }
+            synoOK:function(){
+                location.reload();
             }
-        });
-        Vue.http.interceptors.push(function (request, next) {
-            if (request.method === 'POST'){
-                console.log('test11');
-                helpVue.showLoading = true;
-                next(function (response) {
-                    helpVue.showLoading = false;
-                    return response;
-                });
-            }
-        });
+        }
+    });
+    Vue.http.interceptors.push(function (request, next) {
+        if (request.method === 'POST'){
+            console.log('test11');
+            helpVue.showLoading = true;
+            next(function (response) {
+                helpVue.showLoading = false;
+                return response;
+            });
+        }
+    });
 
-    </script>
+</script>
 
-    <script>
+<script>
     var fTs = [];
     var pJpara = '';
     ranTheme = {"id":-1,"type":0,"url":"","color":"#FFFFFF","color1":"#FFFFFF","ray":"#F5F5F5","op":1};
@@ -519,90 +518,90 @@
     var hotMyArr = [101,102,103];
     var hotMyTmpArr = [];
 
-    </script>
-    
-    <script type="text/javascript" src="https://cdn.miguyu.com/statics/js/slidercust/slideverify.js"></script>
-    <script type="text/javascript" src="https://cdn.miguyu.com/statics/js/jscolor/jscolor1.js"></script>
-    <script type="text/javascript" src="https://cdn.miguyu.com/statics/js/formvalidator.js"></script>
-    <script type="text/javascript" src="https://cdn.miguyu.com/statics/js/zui.min.js"></script>
+</script>
+
+<script type="text/javascript" src="https://cdn.miguyu.com/statics/js/slidercust/slideverify.js"></script>
+<script type="text/javascript" src="https://cdn.miguyu.com/statics/js/jscolor/jscolor1.js"></script>
+<script type="text/javascript" src="https://cdn.miguyu.com/statics/js/formvalidator.js"></script>
+<script type="text/javascript" src="https://cdn.miguyu.com/statics/js/zui.min.js"></script>
 
 
-    <script>
-        var my_hot_lists = {'101':'','102':'','103':'','104':'','105':'','106':'','107':'','108':'','109':'','110':'','111':'','112':'','113':'','114':'','115':'','116':'','117':'','118':'','119':'','120':''};
-        var my_hot_s_time = new Date();
-        var my_wea_now ={"air_now_city":{"aqi":"44","qlty":"优"},
-            "rain":{"txt":"未来两小时无降水"},
-            "now":{"temp":"15","cond-icon":"101","text":"多云","windD":"西南风","windJ":"3","windV":"14","hum":"46","precip":"0.0","pressure":"1025"}};
-    </script>
+<script>
+    var my_hot_lists = {'101':'','102':'','103':'','104':'','105':'','106':'','107':'','108':'','109':'','110':'','111':'','112':'','113':'','114':'','115':'','116':'','117':'','118':'','119':'','120':''};
+    var my_hot_s_time = new Date();
+    var my_wea_now ={"air_now_city":{"aqi":"44","qlty":"优"},
+        "rain":{"txt":"未来两小时无降水"},
+        "now":{"temp":"15","cond-icon":"101","text":"多云","windD":"西南风","windJ":"3","windV":"14","hum":"46","precip":"0.0","pressure":"1025"}};
+</script>
 
-        <script type="text/javascript" src="https://cdn.miguyu.com/statics/js/myjs/TEST0105neY88A2306.min.js?v=0.2.5.0.2"></script>
-    <script type="text/javascript" src="https://cdn.miguyu.com/statics/js/myjs/TEST0126bzX66B2306.min.js?v=0.2.5.3.0"></script>
-    <script type="text/javascript" src="https://cdn.miguyu.com/statics/js/myjs/TEST0309XDf29C2304.min.js?v=0.2.5.0.1"></script>
-    <script type="text/javascript" src="https://cdn.miguyu.com/statics/js/myjs/TEST0407Bag53D2304.min.js?v=0.2.5.2.2"></script>
-    
-    <script>
-        WIDGET = {
-            "CONFIG": {
-                "modules": "1024",
-                "background": "5",
-                "tmpColor": "434343",
-                "tmpSize": "16",
-                "cityColor": "434343",
-                "citySize": "16",
-                "aqiColor": "434343",
-                "aqiSize": "16",
-                "weatherIconSize": "20",
-                "alertIconSize": "16",
-                "padding": "10px 0px 0px 4px",
-                "shadow": "1",
-                "language": "auto",
-                "fixed": "false",
-                "vertical": "top",
-                "horizontal": "left",
-                "key": "9628630a9ac448da8ed6721ea9da783a"
-            }
+<script type="text/javascript" src="https://cdn.miguyu.com/statics/js/myjs/TEST0105neY88A2306.min.js?v=0.2.5.0.2"></script>
+<script type="text/javascript" src="https://cdn.miguyu.com/statics/js/myjs/TEST0126bzX66B2306.min.js?v=0.2.5.3.0"></script>
+<script type="text/javascript" src="https://cdn.miguyu.com/statics/js/myjs/TEST0309XDf29C2304.min.js?v=0.2.5.0.1"></script>
+<script type="text/javascript" src="https://cdn.miguyu.com/statics/js/myjs/TEST0407Bag53D2304.min.js?v=0.2.5.2.2"></script>
+
+<script>
+    WIDGET = {
+        "CONFIG": {
+            "modules": "1024",
+            "background": "5",
+            "tmpColor": "434343",
+            "tmpSize": "16",
+            "cityColor": "434343",
+            "citySize": "16",
+            "aqiColor": "434343",
+            "aqiSize": "16",
+            "weatherIconSize": "20",
+            "alertIconSize": "16",
+            "padding": "10px 0px 0px 4px",
+            "shadow": "1",
+            "language": "auto",
+            "fixed": "false",
+            "vertical": "top",
+            "horizontal": "left",
+            "key": "9628630a9ac448da8ed6721ea9da783a"
         }
-    </script>
+    }
+</script>
 
 
 
 
-            <script type="text/javascript" src="https://cdn.miguyu.com/statics/js/myjs/TEST0207pcB09abXX2308g.min.js?v=0.2.5.3.2"></script>
-        
-    <script>
-        var swiOutTime = 300;
-        $('#search').mouseenter(function() {
-            clearTimeout(swiOutTime);
-            swiOutTime = setTimeout(function(){
+<script type="text/javascript" src="https://cdn.miguyu.com/statics/js/myjs/TEST0207pcB09abXX2308g.min.js?v=0.2.5.3.2"></script>
+
+<script>
+    var swiOutTime = 300;
+    $('#search').mouseenter(function() {
+        clearTimeout(swiOutTime);
+        swiOutTime = setTimeout(function(){
             if ($('#search').css('opacity') < 1){
-                    $('#search').css('opacity',1);
-                }
-            },300);
-        });
-        $('#search').mouseleave(function() {
-            clearTimeout(swiOutTime);
-            swiOutTime = setTimeout(function(){
-                if ($('#box').css('display') == 'block' || $('.search-engine').css('display') == 'block'){
-                    $('#search').css('opacity',1);
-                }else{
-                    $('#search').css('opacity',cur_opacity);
-                }
-            },300);
-        });
-    </script>
+                $('#search').css('opacity',1);
+            }
+        },300);
+    });
+    $('#search').mouseleave(function() {
+        clearTimeout(swiOutTime);
+        swiOutTime = setTimeout(function(){
+            if ($('#box').css('display') == 'block' || $('.search-engine').css('display') == 'block'){
+                $('#search').css('opacity',1);
+            }else{
+                $('#search').css('opacity',cur_opacity);
+            }
+        },300);
+    });
+</script>
 
-        <script>
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?9a803bed0547c0e2129506732f85002b";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
-    
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?9a803bed0547c0e2129506732f85002b";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
 
 
-        <script src="https://cdn.miguyu.com/statics/js/myjs/he-simple-common.js?v=2.0.0.2"></script>
-        </body>
-    </html>
+
+<script src="https://cdn.miguyu.com/statics/js/myjs/he-simple-common.js?v=2.0.0.2"></script>
+</body>
+</html>
