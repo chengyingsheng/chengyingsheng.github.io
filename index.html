@@ -1,63 +1,141 @@
 <!DOCTYPE html>
-<HTML>
-<HEAD>
-	<TITLE> ZTREE DEMO - url</TITLE>
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<link rel="stylesheet" href="https://www.treejs.cn/v3/css/demo.css" type="text/css">
-	<link rel="stylesheet" href="https://www.treejs.cn/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
-	<script type="text/javascript" src="https://www.treejs.cn/v3/js/jquery-1.4.4.min.js"></script>
-	<script type="text/javascript" src="https://www.treejs.cn/v3/js/jquery.ztree.core.js"></script>
-	<!--  <script type="text/javascript" src="../../../js/jquery.ztree.excheck.js"></script>
-	  <script type="text/javascript" src="../../../js/jquery.ztree.exedit.js"></script>-->
-	<SCRIPT type="text/javascript">
-		<!--
-		var setting = {
-			data: {
-				simpleData: {
-					enable: true
-				}
-			}
-		};
+<html lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <title>
+        百度一下
+    </title>
+    <link href="favicon.ico" rel="icon"/>
+    <link href="cus.css" rel="stylesheet"/>
+    <link href="baidu.css" rel="stylesheet"/>
+    <link href="material.css" rel="stylesheet"/>
+    <link href="icons.css" rel="stylesheet"/>
+    <link href="init-7d80ace317.css" rel="stylesheet"/>
+    <script src="jquery.min.js"></script>
+    <script src="material-components-web.min.js"></script>
+</head>
+<body>
+<header class="mdc-top-app-bar mdc-top-app-bar--fixed"
+        style="-webkit-transition: background-color 250ms cubic-bezier(.4,0,.2,1);">
+    <div class="mdc-top-app-bar__row">
+        <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" style="margin-right: 20px;">
+            <mwc-button style="border-radius: 30px;">
+                <button class="mdc-top-app-bar__action-item mdc-icon-button" aria-label="Options"
+                        onclick="setting_search_engine()">
+                    <svg viewBox="0 0 24 24">
+                        <path d="m18.04 7.99-.63-1.4-1.4-.63c-.39-.18-.39-.73 0-.91l1.4-.63.63-1.4c.18-.39.73-.39.91 0l.63 1.4 1.4.63c.39.18.39.73 0 .91l-1.4.63-.63 1.4c-.17.39-.73.39-.91 0zm3.24 4.73-.32-.72c-.18-.39-.73-.39-.91 0l-.32.72-.73.32c-.39.18-.39.73 0 .91l.72.32.32.73c.18.39.73.39.91 0l.32-.72.73-.32c.39-.18.39-.73 0-.91l-.72-.33zm-5.04 1.65 1.23.93c.4.3.51.86.26 1.3l-1.62 2.8c-.25.44-.79.62-1.25.42l-1.43-.6c-.2.13-.42.26-.64.37l-.19 1.54c-.06.5-.49.88-.99.88H8.38c-.5 0-.93-.38-.99-.88l-.19-1.54c-.22-.11-.43-.23-.64-.37l-1.43.6c-.46.2-1 .02-1.25-.42l-1.62-2.8c-.25-.44-.14-.99.26-1.3l1.23-.93V14c0-.12 0-.25.01-.37l-1.23-.93c-.4-.3-.51-.86-.26-1.3l1.62-2.8c.25-.44.79-.62 1.25-.42l1.43.6c.2-.13.42-.26.64-.37l.19-1.54c.05-.49.48-.87.98-.87h3.23c.5 0 .93.38.99.88l.19 1.54c.22.11.43.23.64.37l1.43-.6c.46-.2 1-.02 1.25.42l1.62 2.8c.25.44.14.99-.26 1.3l-1.23.93c.01.12.01.24.01.37s0 .24-.01.36zM13 14c0-1.66-1.34-3-3-3s-3 1.34-3 3 1.34 3 3 3 3-1.34 3-3z"></path>
+                    </svg>
+                </button>
+            </mwc-button>
+        </section>
+    </div>
+</header>
+<main class="mdc-top-app-bar--fixed-adjust">
+    <center>
+        <div class="logo-box">
+            <img alt="Google" data-atf="1" height="auto" id="google-logo" src="baidu.png"/>
+        </div>
+    </center>
+    <script type="text/javascript">
+        if (localStorage.engine === 'google') {
+            $('#google-logo').attr('src','google.png');
+        } else if (localStorage.engine === 'bing') {
+            $('#google-logo').attr('src','bing.png');
+        }
+    </script>
+    <div class="search">
+        <form action="https://www.baidu.com/s" class="tsf" data-submitfalse="f" id="tsf" method="GET" name="f"
+              role="search" style="overflow:visible;z-index: 999;">
+            <div class="card">
+                <div class="input-box">
+                    <div class="icon">
+                        <div class="iblpc">
+                                <span class="wFncld z1asCe">
+                                    <svg focusable="false" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z">
+                                        </path>
+                                    </svg>
+                                </span>
+                        </div>
+                        <div class="a4bIc">
+                            <input id="input_search" autocomplete="off" class="gLFyf gsfi input-view" maxlength="2048" name="wd"
+                                   type="text">
+                            </input>
+                            <script src="search.js">
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="think_panel" style="display: none;">
+            </div>
+        </form>
+    </div>
+    <div style="margin-top: 64px;">
+        <div class="card chip_panel" style="height: fit-content;">
+            <div class="s-mblock-content s-opacity-blank3" id="sites_panel">
+            </div>
+        </div>
+    </div>
+    <script src="sites.js">
+    </script>
 
-		var zNodes =[
-			{ id:1, pId:0, name:"zTree Home", url:"http://www.treejs.cn/", target:"_blank"},
-			{ id:2, pId:0, name:"zTree in Google", url:"http://code.google.com/p/jquerytree/", target:"_blank"},
-			{ id:3, pId:0, name:"zTree in Iteye", url:"http://ztreeapi.iteye.com/", target:"_blank"},
-			{ id:4, pId:0, name:"Nothing...", url:"", target:"_blank", click:"alert('我是不会跳转的...');"}
-		];
+    <div class="mdc-dialog" style="z-index: 1000;text-align: left;padding-left: 20px;padding-top: 20px;">
+        <div class="mdc-dialog__container">
+            <div class="mdc-dialog__surface" style="min-width: 300px;">
+                <h2 class="mdc-dialog__title" style="font-weight: bold; font-size: x-large;" id="goog_1692804950-alert-title"><!---->设置搜索引擎<!----></h2>
 
-		$(document).ready(function(){
-			$.fn.zTree.init($("#treeDemo"), setting, zNodes);
-		});
-		//-->
-	</SCRIPT>
- </HEAD>
+                <div class="mdc-dialog__content" style="padding-top: 14px;" id="goog_1692804950-alert-supporting">
+                    <ul>
+                        <li>谷歌：需要**上网</li>
+                        <li>必应：广告少(建议)</li>
+                        <li>百度：国内资源较多</li>
+                    </ul>
+                </div>
 
-<BODY>
-<h1>超链接演示</h1>
-<h6>[ 文件路径: core/url.html ]</h6>
-<div class="content_wrap">
-	<div class="zTreeDemoBackground left">
-		<ul id="treeDemo" class="ztree"></ul>
-	</div>
-	<div class="right">
-		<ul class="info">
-			<li class="title"><h2>1、setting 配置信息说明</h2>
-				<ul class="list">
-				<li>普通使用，无必须设置的参数</li>
-				<li class="highlight_red">如果需要灵活控制超链接跳转，请利用 onClick 事件回调函数进行控制，详细请参见 API 文档中的相关内容</li>
-				</ul>
-			</li>
-			<li class="title"><h2>2、treeNode 节点数据说明</h2>
-				<ul class="list">
-				<li class="highlight_red">1、url 属性用于设置 页面跳转的路径</li>
-				<li class="highlight_red">2、target 属性用于设置 页面跳转的窗口目标</li>
-				<li class="highlight_red">3、click 属性用于设置简单的 onClick 事件</li>
-				<li>其他属性说明请参考 API 文档中 "treeNode 节点数据详解"</li>
-				</ul>
-			</li>
-		</ul>
-	</div>
-</div>
-</BODY>
-</HTML>
+                <footer class="mdc-dialog__actions">
+                    <!---->
+                    <button type="button" onclick="set_engine('google')" class="mdc-button mdc-dialog__button mdc-ripple-upgraded" data-mdc-dialog-action="1">
+                        <span class="mdc-button__label"><!---->谷歌<!----></span>
+                        <div class="mdc-button__ripple"></div>
+                    </button>
+                    <!---->
+                    <button type="button" onclick="set_engine('bing')" class="mdc-button mdc-dialog__button mdc-ripple-upgraded" data-mdc-dialog-action="2">
+                        <span class="mdc-button__label"><!---->必应<!----></span>
+                        <div class="mdc-button__ripple"></div>
+                    </button>
+                    <!---->
+                    <button type="button" onclick="set_engine('baidu')" class="mdc-button mdc-dialog__button mdc-ripple-upgraded" data-mdc-dialog-action="2">
+                        <span class="mdc-button__label"><!---->百度<!----></span>
+                        <div class="mdc-button__ripple"></div>
+                    </button>
+                </footer>
+            </div>
+        </div>
+        <div class="mdc-dialog__scrim"></div>
+        <script type="text/javascript">
+            const buttons = document.querySelectorAll('.mdc-button');
+            for (const button of buttons) {
+                mdc.ripple.MDCRipple.attachTo(button);
+            }
+            const topAppBar = new mdc.topAppBar.MDCTopAppBar(document.querySelector('.mdc-top-app-bar'));
+            const dialog = new mdc.dialog.MDCDialog(document.querySelector('.mdc-dialog'));
+            function set_engine(engine_name) {
+                localStorage.engine=engine_name;
+                location.reload();
+            }
+            function setting_search_engine() {
+                dialog.open()
+            }
+            if (localStorage.engine === 'google') {
+                $('#tsf').attr('action','https://www.google.com/search');
+                $('#input_search').attr('name','q');
+            } else if (localStorage.engine === 'bing') {
+                $('#tsf').attr('action','https://cn.bing.com/search');
+                $('#input_search').attr('name','q');
+            }
+        </script>
+    </div>
+</main>
+</body>
+</html>
