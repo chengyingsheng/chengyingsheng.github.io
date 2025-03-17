@@ -5,13 +5,13 @@
     <title>
        个性主页
     </title>
-    <link href="favicon2.ico" rel="icon"/>
+    <link href="favicons/favicon2.ico" rel="icon"/>
     <link href="resource/cus.css" rel="stylesheet"/>
     <link href="resource/baidu.css" rel="stylesheet"/>
-    <link href="material.css" rel="stylesheet"/>
+    <link href="resource/material.css" rel="stylesheet"/>
     <link href="resource/init-7d80ace317.css" rel="stylesheet"/>
     <script src="resource/jquery.min.js"></script>
-    <script src="material-components-web.min.js"></script>
+    <script src="resource/material-components-web.min.js"></script>
 </head>
 <body>
 <header class="mdc-top-app-bar mdc-top-app-bar--fixed"
@@ -32,18 +32,18 @@
 <main class="mdc-top-app-bar--fixed-adjust">
     <center>
         <div class="logo-box">
-            <img alt="Google" data-atf="1" height="auto" id="google-logo" src="baidu.png"/>
+            <img alt="Google" data-atf="1" height="auto" id="google-logo" src="resource/baidu.png"/>
         </div>
     </center>
     <script type="text/javascript">
         if (localStorage.engine === 'google') {
-            $('#google-logo').attr('src','google.png');
+            $('#google-logo').attr('src','resource/google.png');
         } else if (localStorage.engine === 'bing') {
-            $('#google-logo').attr('src','bing.png');
+            $('#google-logo').attr('src','resource/bing.png');
         }
     </script>
     <div class="search">
-        <form action="https://www.baidu.com/s" class="tsf" data-submitfalse="f" id="tsf" method="GET" name="f"
+        <form action="https://www.baidu.com/s" target="_blank" class="tsf" data-submitfalse="f" id="tsf" method="GET" name="f"
               role="search" style="overflow:visible;z-index: 999;">
             <div class="card">
                 <div class="input-box">
