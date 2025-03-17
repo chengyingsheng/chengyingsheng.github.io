@@ -159,8 +159,8 @@
 .sui-dialog-mine-pannel .recom-content .recom-item .recom-icon {
     height: 14px;
     width: 14px;
-    background: url(../../img/mine/mine_set-a1ee6c4b1e.png?v=md5) no-repeat -16px -28px;
-    _background: url(../../img/mine/mine_set_ie-a94e02fc99.png?v=md5) no-repeat -16px -28px
+    /*background: url(../../img/mine/mine_set-a1ee6c4b1e.png?v=md5) no-repeat -16px -28px;*/
+    /*_background: url(../../img/mine/mine_set_ie-a94e02fc99.png?v=md5) no-repeat -16px -28px*/
 }
 .sui-dialog-mine-pannel .recom-content .recom-hover .recom-icon, .sui-dialog-mine-pannel .recom-item:hover .recom-icon {
     background-position: 0 -28px
@@ -180,7 +180,7 @@
 }
 .s-xmancard-mine_new .virtual * {
     filter: alpha(opacity=80)\0;
-    *filter: alpha(opacity=80);
+    /**filter: alpha(opacity=80);*/
     _opacity: .3;
     _filter: alpha(opacity=30)
 }
@@ -193,8 +193,8 @@
     height: 100%;
     background: 0 0;
     opacity: 0;
-    *background: url(../../img/mine/blank-b79ffa5cb1.png?v=md5) repeat;
-    background: url(../../img/mine/blank-b79ffa5cb1.png?v=md5) repeat\0;
+    /**background: url(../../img/mine/blank-b79ffa5cb1.png?v=md5) repeat;*/
+    /*background: url(../../img/mine/blank-b79ffa5cb1.png?v=md5) repeat\0;*/
     _padding-bottom: 999999px
 }
 .s-code-blocks .s-simp-toggle {
@@ -282,8 +282,8 @@
     height: 14px;
     width: 14px;
     margin-left: 5px;
-    background: url(../../img/mine/mine_set-a1ee6c4b1e.png?v=md5) no-repeat -16px -28px;
-    _background: url(../../img/mine/mine_set_ie-a94e02fc99.png?v=md5) no-repeat -16px -28px
+    /*background: url(../../img/mine/mine_set-a1ee6c4b1e.png?v=md5) no-repeat -16px -28px;*/
+    /*_background: url(../../img/mine/mine_set_ie-a94e02fc99.png?v=md5) no-repeat -16px -28px*/
 }
 .sui-dialog-mine-blank-pannel .recom-content .recom-hover .recom-icon, .sui-dialog-mine-blank-pannel .recom-item:hover .recom-icon {
     background-position: 0 -28px
@@ -852,8 +852,8 @@
     top: 12px;
     height: 6px;
     width: 9px;
-    background: url(../../img/mine/mine_set-a1ee6c4b1e.png?v=md5) no-repeat -105px -32px;
-    _background: url(../../img/mine/mine_set_ie-a94e02fc99.png?v=md5) no-repeat -105px -32px
+    /*background: url(../../img/mine/mine_set-a1ee6c4b1e.png?v=md5) no-repeat -105px -32px;*/
+    /*_background: url(../../img/mine/mine_set_ie-a94e02fc99.png?v=md5) no-repeat -105px -32px*/
 }
 .sui-tips-nav-success .sui-tips-arrow {
     display: none
@@ -1140,8 +1140,8 @@
     position: relative;
     height: 50px;
     width: 100%;
-    background: url(../../img/mine/s_stock_blank-9651ddb4b8.png?v=md5) no-repeat 254px 23px;
-    _background: url(../../img/mine/s_stock_blank_ie-e982f9341d.png?v=md5) no-repeat 254px 23px
+    /*background: url(../../img/mine/s_stock_blank-9651ddb4b8.png?v=md5) no-repeat 254px 23px;*/
+    /*_background: url(../../img/mine/s_stock_blank_ie-e982f9341d.png?v=md5) no-repeat 254px 23px*/
 }
 .sui-suggestion .sp-sg-name {
     width: 490px

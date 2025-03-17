@@ -2725,8 +2725,8 @@ a.c-text {
     height: 100%;
     background: 0 0;
     opacity: 0;
-    *background: url(../../img/mine/blank-b79ffa5cb1.png?v=md5) repeat;
-    background: url(../../img/mine/blank-b79ffa5cb1.png?v=md5) repeat\0;
+    /**background: url(../../img/mine/blank-b79ffa5cb1.png?v=md5) repeat;*/
+    /*background: url(../../img/mine/blank-b79ffa5cb1.png?v=md5) repeat\0;*/
     _padding-bottom: 999999px
 }
 .s-code-blocks .s-simp-toggle {
