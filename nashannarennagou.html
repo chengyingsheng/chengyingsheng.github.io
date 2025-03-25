@@ -1,0 +1,30 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<!--<h2>Hello World!</h2>-->
+<script src="/dd/resource/hls.min.js"></script>
+<script src="/dd/resource/flv.min.js"></script>
+<script src="/dd/resource/dash.all.min.js"></script>
+<script src="/dd/resource/webtorrent.min.js"></script>
+<script src="/dd/resource/DPlayer.min.js"></script>
+<!--<link rel="stylesheet" href="/resource/DPlayer.min.css">-->
+<div id="dplayer"></div>
+<script>
+    new DPlayer({
+        container: document.getElementById('dplayer'),
+        video: {
+            url: "https://vip.ffzy-play7.com/20221105/1469_febd9a58/index.m3u8",
+            type: 'hls'
+        },
+        hlsjsConfig: {
+            p2pConfig: {
+                logLevel: true,
+                live: false,
+            }
+        },
+    });
+</script>
+</body>
+</html>
